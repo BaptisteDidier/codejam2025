@@ -7,5 +7,5 @@ app = FastAPI(lifespan=lifespan)
 # Routers
 app.include_router(upload.router)
 app.include_router(history.router)
-app.include_router(insights.router)
-app.include_router(process.router)
+#app.include_router(insights.router)
+#app.include_router(process.router)

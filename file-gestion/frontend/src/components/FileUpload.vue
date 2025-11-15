@@ -1,51 +1,50 @@
 <template>
-  <div style="margin-bottom: 2rem;">
-    <input type="file" @change="onFileSelected"/>
+  <div>
+    <input type="file" @change="onFileSelected" />
     <button @click="uploadFile">Upload</button>
-    <p v-if="uploadMessage">{{ uploadMessage }}</p>
+    <p>{{ uploadMessage }}</p>
   </div>
 </template>
 
 <script>
 export default {
   data() {
-    return { 
+    return {
       selectedFile: null,
-      uploadMessage: ''
-    }
+      uploadMessage: ""
+    };
   },
   methods: {
     onFileSelected(event) {
       this.selectedFile = event.target.files[0];
-      this.uploadMessage = '';
     },
+
     async uploadFile() {
-      if (!this.selectedFile) {
-        return alert("Select a file first!");
-      }
+      if (!this.selectedFile) return alert("Select a file first!");
 
+      const formData = new FormData();
+      formData.append("file", this.selectedFile);
+
+      // <<< THIS IS THE SECOND SNIPPET START >>>
       try {
-        const formData = new FormData();
-        formData.append('file', this.selectedFile);
-
-        const response = await fetch('http://localhost:5173/upload', { // default port
-          method: 'POST',
+        const response = await fetch("http://localhost:8000/upload", {
+          method: "POST",
           body: formData
         });
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.detail || 'Upload failed');
-        }
+        const text = await response.text();
+        console.log("Raw response text:", text);
 
-        const data = await response.json();
+        const data = JSON.parse(text); // <-- will throw if not valid JSON
+        console.log("Parsed JSON:", data);
+
         this.uploadMessage = `File uploaded! ID: ${data.id}`;
-        this.$emit('file-uploaded', this.selectedFile);
-        this.selectedFile = null;
       } catch (err) {
-        this.uploadMessage = `Error: ${err.message}`;
+        console.error("Failed to upload or parse JSON:", err);
+        this.uploadMessage = `Upload error: ${err.message}`;
       }
+      this.selectedFile = null; // reset after upload
     }
   }
-}
+};
 </script>

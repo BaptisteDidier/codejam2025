@@ -8,7 +8,7 @@ router = APIRouter()
 async def get_upload_history(limit: int = 10, offset: int = 0):
     query = """
         SELECT id, filename, size, mimetype, uploaded_at
-        FROM uploaded_files
+        FROM uploads
         ORDER BY uploaded_at DESC
         LIMIT $1 OFFSET $2
     """
