@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Options</title>
   <style>
     body {
@@ -9,7 +9,7 @@
       min-width: 180px;
       padding: 10px;
       margin: 0;
-      background-color: rgba(255, 255, 255, 0.95);
+      background-color: #fff;
     }
 
     .option-btn {
@@ -20,6 +20,7 @@
       cursor: pointer;
       text-align: left;
       transition: background-color 0.2s;
+      user-select: none;
     }
 
     .option-btn:hover {
@@ -31,19 +32,6 @@
       border-color: #60c060;
     }
 
-    #apply-btn {
-      margin-top: 10px;
-      padding: 6px 10px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      cursor: pointer;
-      background-color: #f0f0f0;
-    }
-
-    #apply-btn:hover {
-      background-color: #e0e0e0;
-    }
-
     #msg {
       color: red;
       font-size: 12px;
@@ -53,9 +41,8 @@
   </style>
 </head>
 <body>
-  <div class="option-btn" data-value="1">Audio Description</div>
-  <div class="option-btn" data-value="2">Audio Transcript</div>
-  <button id="apply-btn">Apply</button>
+  <div class="option-btn" data-value="1">Option 1</div>
+  <div class="option-btn" data-value="2">Option 2</div>
   <p id="msg"></p>
 
   <script src="popup.js"></script>

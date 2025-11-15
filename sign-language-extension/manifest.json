@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Simple Options Popup",
+  "name": "ASL Translator",
   "version": "1.0",
-  "permissions": ["activeTab"],
+  "permissions": ["activeTab", "storage"],
   "action": {
     "default_icon": "pic.png",
     "default_popup": "popup.html"
