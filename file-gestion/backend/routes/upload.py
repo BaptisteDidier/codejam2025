@@ -1,32 +1,28 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException
 from database import db_pool
-import traceback
 
 MAX_SIZE = 3 * 1024 * 1024
 router = APIRouter()
 
 @router.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
-    try:
-        content = await file.read()
-        size = len(content)
+    content = await file.read()
+    size = len(content)
 
-        if size > MAX_SIZE:
-            raise HTTPException(status_code=400, detail="File too large")
+    if size > MAX_SIZE:
+        raise HTTPException(status_code=400, detail="File too large")
 
-        query = """
-            INSERT INTO files (filename, content)
-            VALUES ($1, $2)
-            RETURNING id;
-        """
+    query = """
+        INSERT INTO uploads (filename, content, mimetype)
+        VALUES ($1, $2, $3)
+        RETURNING id, uploaded_at;
+    """
 
-        async with db_pool.acquire() as conn:
-            file_id = await conn.fetchval(query, file.filename, content)
+    async with db_pool.acquire() as c:
+        row = await c.fetchrow(query, file.filename, content, file.content_type)
 
-        return {"id": file_id, "filename": file.filename, "uploaded_at": datetime.now().isoformat()}
-
-    except HTTPException:
-        raise
-    
-    except Exception as e:
-        return {"error": "Upload failed", "message": str(e), "trace": traceback.format_exc()}
+    return {
+        "id": row["id"],
+        "filename": row["filename"],
+        "uploaded_at": row["uploaded_at"].isoformat()
+    }
