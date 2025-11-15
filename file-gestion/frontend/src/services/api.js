@@ -1,37 +1,47 @@
-// src/services/api.js
+const API_BASE = "http://localhost:5173"; // server port
+
+
 export async function uploadFile(file) {
-    await new Promise(resolve => setTimeout(resolve, 500));
-  
-    return {
-      id: Math.floor(Math.random() * 1000),
-      filename: file.name,
-      status: 'Processed',
-      uploadTime: new Date().toLocaleString(),
-      insights: [
-        { label: 'Metric A', value: Math.floor(Math.random() * 50) },
-        { label: 'Metric B', value: Math.floor(Math.random() * 50) },
-        { label: 'Metric C', value: Math.floor(Math.random() * 50) }
-      ]
-    };
-  }
-  
-  export async function fetchHistory() {
-    await new Promise(resolve => setTimeout(resolve, 500));
-  
-    return [
-      { id: 1, filename: 'sales.csv', status: 'Processed', uploadTime: '2025-11-15 12:00' },
-      { id: 2, filename: 'inventory.json', status: 'Processed', uploadTime: '2025-11-14 15:30' }
-    ];
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await fetch(`${API_BASE}/upload`, {
+    method: "POST",
+    body: formData
+  });
+
+  if (!response.ok) {
+    const err = await response.json();
+    throw new Error(err.detail || "Upload failed");
   }
 
-  export async function fetchInsights(fileId) {
-    await new Promise(resolve => setTimeout(resolve, 500));
-  
-    return [
-      { label: 'Metric A', value: Math.floor(Math.random() * 50) },
-      { label: 'Metric B', value: Math.floor(Math.random() * 50) },
-      { label: 'Metric C', value: Math.floor(Math.random() * 50) }
-    ];
+  const data = await response.json();
+  return {
+    id: data.id,
+    filename: file.name,
+    status: "Processed",
+    uploadTime: new Date().toLocaleString()
+  };
+}
+
+
+export async function fetchHistory(limit = 10, offset = 0) {
+  const response = await fetch(`${API_BASE}/history?limit=${limit}&offset=${offset}`);
+  if (!response.ok) {
+    const err = await response.json();
+    throw new Error(err.detail || "Failed to fetch history");
   }
-  
-  
+
+  const data = await response.json();
+  return data.history.map(item => ({
+    id: item.id,
+    filename: item.filename,
+    status: "Processed",
+    uploadTime: new Date(item.uploaded_at).toLocaleString()
+  }));
+}
+
+
+export async function fetchInsights(fileId) {
+  return [];
+}
