@@ -2,7 +2,8 @@
   "manifest_version": 3,
   "name": "ASL Translator",
   "version": "1.0",
-  "permissions": ["activeTab", "storage"],
+  "permissions": ["activeTab", "storage", "scripting"],
+  "background": { "service_worker": "src/background.js" },
   "action": {
     "default_icon": "pic.png",
     "default_popup": "popup.html"
