@@ -1,0 +1,86 @@
+/* General App Layout */
+body {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    background-color: #f5f7fa;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #app {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 12px;
+  }
+  
+  /* Headings */
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #2c3e50;
+  }
+  
+  /* File Upload */
+  input[type="file"] {
+    margin-right: 1rem;
+  }
+  
+  button {
+    padding: 0.5rem 1rem;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  button:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Tables (UploadHistory) */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 0.8rem;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Chart */
+  canvas {
+    margin-top: 2rem;
+    max-height: 300px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 600px) {
+    #app {
+      padding: 1rem;
+    }
+    button {
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+    input[type="file"] {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+  }
+  
