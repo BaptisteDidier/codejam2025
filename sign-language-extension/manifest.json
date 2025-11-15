@@ -1,13 +1,10 @@
 {
   "manifest_version": 3,
-  "name": "Camera Button Test",
+  "name": "Simple Options Popup",
   "version": "1.0",
-  "permissions": ["activeTab", "scripting"],
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["contentScript.js"],
-      "run_at": "document_idle"
-    }
-  ]
+  "permissions": ["activeTab"],
+  "action": {
+    "default_icon": "pic.png",
+    "default_popup": "popup.html"
+  }
 }
