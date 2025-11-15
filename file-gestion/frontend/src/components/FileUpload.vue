@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="upload-container">
     <input type="file" @change="onFileSelected" />
     <button @click="uploadFile">Upload</button>
     <p>{{ uploadMessage }}</p>
@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       selectedFile: null,
-      uploadMessage: ""
+      uploadMessage: "",
     };
   },
   methods: {
@@ -29,7 +29,7 @@ export default {
       try {
         const response = await fetch("http://127.0.0.1:8000/upload", {
           method: "POST",
-          body: formData
+          body: formData,
         });
 
         const text = await response.text();
@@ -44,7 +44,16 @@ export default {
         this.uploadMessage = `Upload error: ${err.message}`;
       }
       this.selectedFile = null; // reset after upload
-    }
-  }
+    },
+  },
 };
 </script>
+
+<style>
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+</style>

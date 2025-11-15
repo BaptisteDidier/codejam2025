@@ -1,45 +1,34 @@
 <template>
-  <canvas id="chart" width="400" height="200"></canvas>
+  <div>
+    <h2>File Insights</h2>
+    <p>Number of rows: {{ insights["Number of rows"] }}</p>
+    <p>Rows: {{ insights["Rows"] }}</p>
+    <p>Number of columns: {{ insights["Number of columns"] }}</p>
+    <p>Columns: {{ insights["Columns"] }}</p>
+    <p>Number of missing values: {{ insights["Number of missing values"] }}</p>
+    <p>Missing values locations: {{ insights["Missing values locations"] }}</p>
+  </div>
 </template>
 
 <script>
-import { onMounted, watch } from 'vue'
-import Chart from 'chart.js/auto'
+import { ref, onMounted } from "vue";
+import axios from "axios";
 
 export default {
-  props: ['insights'],
+  props: ["fileId"],
   setup(props) {
-    let chartInstance;
+    const insights = ref({});
 
-    onMounted(() => {
-      const ctx = document.getElementById('chart').getContext('2d');
-      chartInstance = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: props.insights.map(i => i.label),
-          datasets: [{
-            label: 'Metrics',
-            data: props.insights.map(i => i.value),
-            backgroundColor: 'rgba(54, 162, 235, 0.5)'
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false
-        }
-      });
-    });
-
-    watch(() => props.insights, (newVal) => {
-      if(chartInstance) {
-        chartInstance.data.labels = newVal.map(i => i.label);
-        chartInstance.data.datasets[0].data = newVal.map(i => i.value);
-        chartInstance.update();
+    onMounted(async () => {
+      try {
+        const res = await axios.get(`/api/insights/${props.fileId}`);
+        insights.value = res.data;
+      } catch (err) {
+        console.error("Error fetching insights:", err);
       }
     });
 
-    return {};
-  }
-}
+    return { insights };
+  },
+};
 </script>
-
