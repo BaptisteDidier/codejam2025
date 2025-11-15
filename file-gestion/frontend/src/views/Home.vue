@@ -22,10 +22,8 @@ export default {
   },
   methods: {
     async handleFileUploaded(file) {
-      const response = await uploadFile(file)
-      this.insights = response.insights
-      // Optionally, emit to a global store for history page
-      this.$emit('file-uploaded', response)
+        const response = await uploadFile(file)
+        this.insights = response.insights
     }
   }
 }
