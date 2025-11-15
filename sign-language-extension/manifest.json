@@ -1,0 +1,7 @@
+{
+  "manifest_version": 3,
+  "name": "Sign Language Translator",
+  "version": "1.0",
+  "permissions": ["camera","microphone","storage"],
+  "action": { "default_popup": "dist/index.html" }
+}
