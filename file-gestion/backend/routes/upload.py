@@ -23,7 +23,7 @@ async def upload_file(file: UploadFile = File(...)):
         async with db_pool.acquire() as conn:
             file_id = await conn.fetchval(query, file.filename, content)
 
-        return {"id": file_id}
+        return {"id": file_id, "filename": file.filename, "uploaded_at": datetime.now().isoformat()}
 
     except HTTPException:
         raise
