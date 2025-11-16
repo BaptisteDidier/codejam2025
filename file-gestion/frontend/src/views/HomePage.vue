@@ -1,6 +1,6 @@
 <script setup>
 import Navbar from "@/components/Navbar.vue";
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
 import { useFileStore } from "@/stores/fileStore";
 
@@ -20,7 +20,6 @@ const handleFile = (event) => {
 
   selectedFileName.value = file.name;
 
-  // Read CSV client-side
   const reader = new FileReader();
   reader.onload = (e) => {
     const text = e.target.result;
@@ -34,7 +33,16 @@ const handleFile = (event) => {
   };
   reader.readAsText(file);
 };
+
+onMounted(() => {
+  document.body.style.overflow = 'hidden';
+});
+
+onUnmounted(() => {
+  document.body.style.overflow = '';
+});
 </script>
+
 
 <template>
   <div class="page">
@@ -44,8 +52,6 @@ const handleFile = (event) => {
 
     <div class="content-wrapper">
       <main class="main-content">
-        <h1 class="title">Welcome</h1>
-
         <!-- Upload Card -->
         <div class="upload-card">
           <div class="upload-header" @click="triggerFile">
@@ -73,6 +79,8 @@ const handleFile = (event) => {
   flex-direction: column;
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
+  background-color: #19171a;
 }
 
 .header {
@@ -87,9 +95,9 @@ const handleFile = (event) => {
 .content-wrapper {
   flex: 1;
   display: flex;
-  width: 100%;
   justify-content: center;
   align-items: center;
+  width: 100vw;
 }
 
 .main-content {
@@ -97,30 +105,22 @@ const handleFile = (event) => {
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  background: #19171a;
   width: 100%;
-  height: 100%;
+  max-width: 100%;
+  padding: 0;
 }
 
-.title {
-  font-size: 2.5rem;
-  color: #e9e9e9;
-  font-weight: bold;
-}
-
-/* Upload Card Styling */
 .upload-card {
   width: 300px;
   height: 300px;
   border-radius: 10px;
-  background-color: #1f1f1f; /* dark card */
+  background-color: #1f1f1f;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 10px;
   gap: 10px;
-  border: 2px dashed #ef4444; /* red dashed border */
+  border: 2px dashed #ef4444;
 }
 
 .upload-header {
@@ -154,9 +154,11 @@ const handleFile = (event) => {
   cursor: pointer;
   color: #e9e9e9;
   font-weight: bold;
+  text-align: center;
 }
 
 #file {
   display: none;
 }
+
 </style>

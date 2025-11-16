@@ -1,26 +1,20 @@
 <script setup>
 import { useRouter } from "vue-router";
+
 defineProps({
   tabs: Array,
   activeTab: String
 });
+
 const router = useRouter();
 
 const handleClick = () => {
   if (router.currentRoute.value.name === "Editor") {
     if (confirm("Are you sure you want to leave your work?")) {
-      router.push({ name: "Home" });
+      window.location.href = "/"; // actually reloads the home page
     }
   } else {
-    router.push({ name: "Home" });
-  }
-};
-
-const updateTab = (tabName) => {
-  // Emit event to parent for active tab change
-  // Only if tabs are passed
-  if (typeof __props.updateActiveTab === "function") {
-    __props.updateActiveTab(tabName);
+    window.location.href = "/";
   }
 };
 </script>
@@ -28,12 +22,10 @@ const updateTab = (tabName) => {
 <template>
   <nav class="navbar">
     <div class="header-content">
-      <!-- Logo / Title -->
       <div class="logo-title" @click="handleClick">
-        <h1 class="logo-text">CVSzy</h1>
+        <h1 class="logo-text">CSVzy</h1>
       </div>
 
-      <!-- Tabs (optional, only if provided) -->
       <div v-if="tabs && tabs.length" class="tabs">
         <button
           v-for="tab in tabs"
@@ -69,7 +61,7 @@ const updateTab = (tabName) => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 22px;
+  padding: 1.5rem 4rem;
   border-bottom: 1px solid #444;
 }
 
@@ -80,7 +72,7 @@ const updateTab = (tabName) => {
 }
 
 .logo-text {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   font-weight: bold;
   color: #ef4444;
 }
