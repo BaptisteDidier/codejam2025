@@ -1,17 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import HistoryPage from '../views/HistoryPage.vue'
-import InsightsPage from '../views/InsightsPage.vue'
+import HomePage from '../views/HomePage.vue'
+import EditorPage from '../views/EditorPage.vue'
+import FinalPage from '../views/FinalPage.vue'
 
 const routes = [
-  { path: '/', name: 'Home', component: Home },
-  { path: '/history', name: 'History', component: HistoryPage },
-  { path: '/insights', name: 'Insights', component: InsightsPage }
+{ path: '/', name: 'Home', component: HomePage },
+{ path: '/editor', name: 'Editor', component: EditorPage },
+{ path: '/final', name: 'Final', component: FinalPage }
 ]
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes
-})
+const router = createRouter({history: createWebHistory(), routes})
 
 export default router

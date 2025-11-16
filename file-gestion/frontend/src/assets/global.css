@@ -1,0 +1,47 @@
+/* src/assets/global.css */
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #1f2937; /* bg-gray-900 */
+  color: white;
+  text-align: center;
+  padding: 2rem; /* p-8 */
+}
+
+.title {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 700; /* font-bold */
+  margin-bottom: 1.5rem; /* mb-6 */
+}
+
+.button-primary {
+  padding: 0.75rem 1.5rem; /* px-6 py-3 */
+  background-color: #2563eb; /* bg-blue-600 */
+  color: white;
+  border-radius: 0.75rem; /* rounded-xl */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  cursor: pointer;
+  border: none;
+}
+
+.button-primary:hover {
+  background-color: #1d4ed8; /* hover:bg-blue-700 */
+}
+
+.button-green {
+  padding: 0.75rem 1.5rem;
+  background-color: #16a34a; /* bg-green-600 */
+  color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  cursor: pointer;
+  border: none;
+}
+
+.button-green:hover {
+  background-color: #15803d; /* hover:bg-green-700 */
+}
