@@ -12,11 +12,21 @@ def view(dataframe, row_name, col_name):
         raise ValueError(f"Column '{col_name}' does not exist in the DataFrame.")
     return dataframe.loc[row_name, col_name]
 
-def get_rows(dataframe):
+def get_row_names(dataframe):
     return len(dataframe), dataframe.index.tolist()
 
-def get_cols(dataframe):
-    return len(dataframe.columns), dataframe.columns.tolist()
+def get_row(dataframe, row_name):
+    if row_name not in dataframe.index:
+        raise ValueError(f"Row '{row_name}' does not exist in the DataFrame.")
+    return dataframe.loc[row_name]
+
+def get_col_names(dataframe):
+    return dataframe.columns.tolist()
+
+def get_col(dataframe, col_name):
+    if col_name not in dataframe:
+        raise ValueError(f"Column '{col_name}' does not exist in the DataFrame.")
+    return dataframe[col_name]
     
 def get_missing_vals(dataframe):
     missing_locations = dataframe[dataframe.isna()].stack().index
