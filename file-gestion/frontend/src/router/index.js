@@ -6,7 +6,7 @@ import FinalPage from '../views/FinalPage.vue'
 const routes = [
 { path: '/', name: 'Home', component: HomePage },
 { path: '/editor', name: 'Editor', component: EditorPage },
-{ path: '/final', name: 'Final', component: FinalPage }
+{ path: '/download', name: 'Final', component: FinalPage }
 ]
 
 const router = createRouter({history: createWebHistory(), routes})

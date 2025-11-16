@@ -2,22 +2,23 @@ import { defineStore } from "pinia";
 
 export const useFileStore = defineStore("fileStore", {
   state: () => ({
-    file: null,
-    csvData: null,
-    headers: []
+    fileName: null,
+    headers: [],
+    rows: [],
   }),
-
   actions: {
-    setFile(file) {
-      this.file = file;
+    setFile(fileName) {
+      this.fileName = fileName;
     },
-
-    setCsvData(data) {
-      this.csvData = data;
+    setCsvDataFromBackend(data) {
+      // data = { headers: [...], rows: [[...],[...]] }
+      this.headers = data.headers || [];
+      this.rows = data.rows || [];
     },
-
-    setHeaders(headers) {
-      this.headers = headers;
-    }
-  }
+    clear() {
+      this.fileName = null;
+      this.headers = [];
+      this.rows = [];
+    },
+  },
 });

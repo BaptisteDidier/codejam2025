@@ -1,17 +1,78 @@
+<script setup>
+import Navbar from "@/components/Navbar.vue";
+import { useFileStore } from "@/stores/fileStore";
+
+const fileStore = useFileStore();
+</script>
+
 <template>
-  <div class="flex flex-col items-center justify-center h-screen bg-gray-900 text-white p-8 text-center">
-    <h1 class="text-3xl font-bold mb-6">Your File is Ready</h1>
+  <div class="page">
+    <header class="header">
+      <Navbar />
+    </header>
 
-    <p class="mb-8 opacity-70">
-      This page would show the full content in final form.
-    </p>
-
-    <button class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl shadow">
-      Download
-    </button>
+    <div class="final-preview">
+      <table>
+        <thead>
+          <tr>
+            <th v-for="(h, i) in fileStore.headers" :key="i">{{ h }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(row, r) in fileStore.rows" :key="r">
+            <td v-for="(cell, c) in row" :key="c">{{ cell }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
-<script>
-export default {};
-</script>
+<style scoped>
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px 22px;
+  background: #222;
+  width: 100vw;
+  z-index: 2;
+}
+
+.final-preview {
+  flex: 1;
+  overflow: auto;
+  width: 100%;
+  height: calc(100vh - 60px); /* full space under header */
+  background-color: white; /* always white */
+  color: black; /* text readable */
+  padding: 1rem;
+}
+
+.final-preview table {
+  border-collapse: collapse;
+  width: 100%;
+  height: 100%;
+}
+
+.final-preview th,
+.final-preview td {
+  border: 1px solid #444;
+  padding: 4px 8px;
+  text-align: left;
+}
+
+.final-preview thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f1f1f1;
+  z-index: 1;
+}
+</style>
